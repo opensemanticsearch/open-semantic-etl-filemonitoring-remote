@@ -1,0 +1,10 @@
+/etc/opensemanticsearch/filemonitoring/files
+/etc/opensemanticsearch/filemonitoring/config
+/etc/opensemanticsearch/blacklist/blacklist-url
+/etc/opensemanticsearch/blacklist/blacklist-url-prefix
+/etc/opensemanticsearch/blacklist/blacklist-url-suffix
+/etc/opensemanticsearch/blacklist/blacklist-url-regex
+/etc/opensemanticsearch/blacklist/whitelist-url
+/etc/opensemanticsearch/blacklist/whitelist-url-prefix
+/etc/opensemanticsearch/blacklist/whitelist-url-suffix
+/etc/opensemanticsearch/blacklist/whitelist-url-regex

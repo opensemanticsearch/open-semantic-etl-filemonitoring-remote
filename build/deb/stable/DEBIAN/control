@@ -1,0 +1,12 @@
+Package: opensemanticsearch-trigger-filemonitoring-daemon-remote
+Version: 16.03.01
+Section: misc
+Priority: optional
+Architecture: all
+Depends: daemon(>=0), python3-pyinotify(>=0)
+Installed-Size: 100
+Maintainer: Markus Mandalka <debian@mandalka.name>
+Homepage: http://www.opensemanticsearch.org/
+Description: Monitoring files and directories.
+ If changes or new files, index again.
+ Sending changes to remote API.

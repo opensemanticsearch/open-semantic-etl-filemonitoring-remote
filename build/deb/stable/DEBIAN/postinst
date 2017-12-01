@@ -1,0 +1,4 @@
+#!/bin/sh
+
+# start on boot
+update-rc.d opensemanticsearch-filemonitoring defaults

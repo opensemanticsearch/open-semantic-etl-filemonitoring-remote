@@ -1,0 +1,61 @@
+# -*- coding: utf-8 -*-
+
+# Config for file monitoring
+
+# To add files or directories for monitoring use the separated config file "files" !
+
+# This config is only for setup the remote server / remote API config and directory mapping.
+
+
+#
+# Daemon settings (only active, if started as daemon with the systems init scripts)
+#
+
+# Run filemonitoring daemon as user, instead of root (default)
+# (minimizes risks by running as user with read only access to files)
+#config['user'] = 'filemonitoring'
+
+
+#
+# Remote server
+#
+
+# API uri
+config['api'] = 'http://127.0.0.1/search-apps/api/'
+
+
+#
+# Mapping
+#
+
+# Activate mapping plugin
+config['plugins'].append('enhance_mapping_id')
+
+# Rewrite paths/pathnames to the mountpoint/path names of remote server, if different
+config['mappings'] = {
+	'/': 'file:///', 
+}
+
+
+#
+# Blacklisting
+#
+
+# Activate blacklist Plugin
+config['plugins'].append('filter_blacklist')
+
+# Blacklist for prefixes like paths
+#config['blacklist_prefix'] = [ '/etc/opensemanticsearch/blacklist/blacklist-url-prefix' ]
+#config['whitelist_prefix'] = [ '/etc/opensemanticsearch/blacklist/whitelist-url-prefix' ]
+
+# Blacklist for suffixes like file endings
+#config['blacklist_suffix'] = [ '/etc/opensemanticsearch/blacklist/blacklist-url-suffix' ]
+#config['whitelist_suffix'] = [ '/etc/opensemanticsearch/blacklist/whitelist-url-suffix' ]
+
+# Blacklist for regular expressions like text patterns
+#config['blacklist_regex'] = [ '/etc/opensemanticsearch/blacklist/blacklist-url-regex' ]
+#config['whitelist_regex'] = [ '/etc/opensemanticsearch/blacklist/whitelist-url-regex' ]
+
+# Blacklist for whole URIs
+#config['blacklist'] = [ '/etc/opensemanticsearch/blacklist/blacklist-url' ]
+#config['whitelist'] = [ '/etc/opensemanticsearch/blacklist/whitelist-url' ]

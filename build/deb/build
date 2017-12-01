@@ -1,0 +1,25 @@
+#/bin/sh
+
+VERSION=`date +%y.%m.%d`
+PACKAGE=open-semantic-etl-filemonitoring-remote_${VERSION}.deb
+DEBIAN_VERSION=stable
+BUILDDIR=/tmp/open-semantic-etl-filemonitoring-$$.deb
+
+
+#
+# Build standard package (preconfigured for Solr)
+#
+
+echo "Building ${PACKAGE} in temp directory ${BUILDDIR}"
+
+# since this script is in build/deb, the basedir with sources, configs and files is two directories up
+BASEDIR=`dirname "$0"`
+BASEDIR="${BASEDIR}/../../"
+
+mkdir ${BUILDDIR}
+cp -a ${BASEDIR}/build/deb/${DEBIAN_VERSION}/* ${BUILDDIR}/
+cp -a ${BASEDIR}/etc ${BUILDDIR}/
+cp -a ${BASEDIR}/src/* ${BUILDDIR}/usr/lib/python3/dist-packages/
+
+# Build package
+dpkg -b ${BUILDDIR} ${PACKAGE}
