@@ -1,11 +1,12 @@
-#!/usr/bin/python
+#!/usr/bin/python3
 # -*- coding: utf-8 -*-
 
 import pyinotify
 import sys
 import os.path
-import urllib
 import importlib
+from urllib.request import urlopen
+from urllib.parse import urlencode
 
 
 from optparse import OptionParser 
@@ -20,28 +21,28 @@ class EventHandler(pyinotify.ProcessEvent):
 	
 	def process_IN_CLOSE_WRITE(self, event):
 		if self.verbose:
-			print "Close_write:", event.pathname
+			print ("Close_write:", event.pathname)
 		
 		self.process(filename = event.pathname, function = "index-file")
 
 
 	def process_IN_MOVED_TO(self, event):
 		if self.verbose:
-			print "Moved_to:", event.pathname
+			print ("Moved_to:", event.pathname)
 
 		self.process(filename = event.pathname, function = "index-file")
 
 
 	def process_IN_MOVED_FROM(self, event):
 		if self.verbose:
-			print "Moved_from:", event.pathname
+			print ("Moved_from:", event.pathname)
 
 		self.process(filename = event.pathname, function = "delete")
 
 
 	def process_IN_DELETE(self, event):
 		if self.verbose:
-			print "Delete:", event.pathname
+			print ("Delete:", event.pathname)
 
 		self.process(filename = event.pathname, function = "delete")
 
@@ -63,7 +64,7 @@ class EventHandler(pyinotify.ProcessEvent):
 				print ("Starting plugin {}".format(plugin))
 			
 			try:
-				module = importlib.import_module('etl.' + plugin)
+				module = importlib.import_module('opensemanticetl.' + plugin)
 				
 				objectreference = getattr(module, plugin, False)
 				
@@ -87,7 +88,7 @@ class EventHandler(pyinotify.ProcessEvent):
 				raise KeyboardInterrupt
 			# else dont break because fail of a plugin (maybe other plugins or data extraction will success), only error message
 			except BaseException as e:
-				sys.stderr.write( "Exception while running plugin {}: {}\n".format(plugin, e.message) )
+				sys.stderr.write( "Exception while running plugin {}: {}\n".format(plugin, e) )
 				
 				if self.config['raise_pluginexception']:
 					raise
@@ -117,14 +118,15 @@ class EventHandler(pyinotify.ProcessEvent):
 	def call_api(self, api, docid, function='index-file'):
 		
 		try:
-			parameters = urllib.urlencode( { "uri" : docid } ) 
+
+			parameters = urlencode( { "uri" : docid } )
+			url = api + '/' + function + '?' + parameters
 	
-			urllib.urlopen( api + '/' + function + '?' + parameters)
+			urlopen(url)
 
 		except BaseException as e:
-			sys.stderr.write("Exception while calling API {} for {}:".format(api, docid))
-			sys.stderr.write(e.message)
-			sys.stderr.write("\n")
+			sys.stderr.write( "Exception while calling API {} for {}: ".format(url, docid) )
+			sys.stderr.write( "{}\n".format(e) )
 
 
 
@@ -158,11 +160,11 @@ class Filemonitor(object):
 		result = False
 		
 		if os.path.isfile(configfile):
-			config=self.config
-			execfile( configfile, locals() )
+			config = self.config
+			exec(open(configfile).read(), locals())
 			self.config = config
+	
 			result = True
-
 
 	def add_watch(self, filename):
 
