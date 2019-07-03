@@ -1,9 +1,9 @@
 Package: opensemanticsearch-trigger-filemonitoring-daemon-remote
-Version: 17.12.01
+Version: 19.07.03
 Section: misc
 Priority: optional
 Architecture: all
-Depends: daemon(>=0), python3-pyinotify(>=0)
+Depends: python3-pyinotify(>=0)
 Installed-Size: 100
 Maintainer: Markus Mandalka <debian@mandalka.name>
 Homepage: https://opensemanticsearch.org/

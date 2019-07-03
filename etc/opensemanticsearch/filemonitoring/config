@@ -8,15 +8,6 @@
 
 
 #
-# Daemon settings (only active, if started as daemon with the systems init scripts)
-#
-
-# Run filemonitoring daemon as user, instead of root (default)
-# (minimizes risks by running as user with read only access to files)
-#config['user'] = 'filemonitoring'
-
-
-#
 # Remote server
 #
 
